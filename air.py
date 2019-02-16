@@ -2,14 +2,22 @@ from turtle import *
 import math
 import sys
 import numpy as np
+import xml.etree.ElementTree as ET
 
-from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit
+from PyQt5.QtWidgets import QApplication, QWidget, QPushButton, QLabel, QLineEdit, QMessageBox
 from math import radians, cos, sin, asin, sqrt
+
+class WayPoints:
+
+    def __init__(self, lat, long):
+        self.latitude  = lat
+        self.longitude = long
 
 class Application:
 
     textbox2 = []
-    textbox = []
+    textbox  = []
+    w        = []
 
     def converse_coord(self,point=(0,0)):
         lat = point[0]

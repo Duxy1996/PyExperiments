@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<data>
+    <country name="Liechtenstein">
+    <lat>5</lat>
+    <lon>6</lon>
+    </country>
+    <country name="Singapore">
+    <lat>7</lat>
+    <lon>8</lon>
+    </country>
+    <country name="Panama">
+    <lat>9</lat>
+    <lon>10</lon>
+    </country>
+</data>
