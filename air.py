@@ -42,7 +42,7 @@ class Application:
         w.move(230, 295)
         w.setWindowTitle('Simple')
 
-        button = QPushButton('PyQt5 button',w)
+        button = QPushButton('Fly!',w)
         button.setToolTip('This is an example button')
         button.clicked.connect(self.on_click)
         button.move(150,100)
