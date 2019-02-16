@@ -30,61 +30,88 @@ class Application:
         point_tmp = (math.radians(latitude),math.radians(longitude))
         point_tmp = self.converse_coord(point_tmp)
 
+        error = False
+
+        if (abs(latitude) > 180):
+            QMessageBox.about(self.w,"Error", "The latitude should be between -180 and 180")
+            error = True
+        if (abs(longitude) > 90):
+            QMessageBox.about(self.w,"Error", "The longitude should be between -90 and 90")
+            error = True
+
+        if (not(error)):
+            goto(point_tmp[0],point_tmp[1])
+
+    def goToMoscow(self):
+        point_tmp = (math.radians(37.6173),math.radians(55.7558))
+        point_tmp = self.converse_coord(point_tmp)
         goto(point_tmp[0],point_tmp[1])
+
+    def goToAncorage(self):
+        point_tmp = (math.radians(-149),math.radians(61))
+        point_tmp = self.converse_coord(point_tmp)
+        goto(point_tmp[0],point_tmp[1])
+
+    def gotToHawaii(self):
+        point_tmp = (math.radians(-155),math.radians(21))
+        point_tmp = self.converse_coord(point_tmp)
+        goto(point_tmp[0],point_tmp[1])
+
+    def loadWayPoints(self):
+        tree = ET.parse('data.xml')
+        root = tree.getroot()
+
+        waypoints = []
+
+        for child in root:
+            tmp_way = WayPoints(child[0].text,child[1].text)
+            waypoints.append(tmp_way)
+
+        print(len(waypoints))
 
     def __init__(self):
 
         #point(WE,NS)
+        self.loadWayPoints()
+
         app = QApplication(sys.argv)
 
-        w = QWidget()
-        w.resize(250, 150)
-        w.move(230, 295)
-        w.setWindowTitle('Simple')
+        self.w = QWidget()
+        self.w.resize(250, 150)
+        self.w.move(230, 295)
+        self.w.setWindowTitle('Simple')
 
-        button = QPushButton('Fly!',w)
+        button = QPushButton('Fly!', self.w)
         button.setToolTip('This is an example button')
         button.clicked.connect(self.on_click)
         button.move(150,100)
 
-        label = QLabel("Longitude", w)
+        label = QLabel("Longitude", self.w)
         label.move(50,40)
 
-        self.textbox = QLineEdit(w)
+        self.textbox = QLineEdit(self.w)
         self.textbox.move(100, 40)
         self.textbox.resize(80,20)
 
-        label = QLabel("Latitude", w)
+        label = QLabel("Latitude", self.w)
         label.move(50,60)
 
-        self.textbox2 = QLineEdit(w)
+        self.textbox2 = QLineEdit(self.w)
         self.textbox2.move(100, 60)
         self.textbox2.resize(80,20)
 
-        w.show()
-
-        point_one = (math.radians(37.6173),math.radians(55.7558))
-        point_one = self.converse_coord(point_one)
-
-        point_two = (math.radians(-149),math.radians(61))
-        point_two = self.converse_coord(point_two)
-
-        point_three = (math.radians(-155),math.radians(21))
-        point_three = self.converse_coord(point_three)
+        self.w.show()
 
         screen = Screen()
         screen.setup(960, 490)
         screen.bgpic("world.png")
 
-        goto(point_one[0],point_one[1])
-        clear()
-        color("red")
-        goto(point_two[0],point_two[1])
-        goto(point_three[0],point_three[1])
+        self.goToMoscow()
+        self.goToAncorage()
+        self.gotToHawaii()
 
         done()
 
 if __name__ == '__main__':
     app = Application()
-    sys.exit(app.exec_())
 
