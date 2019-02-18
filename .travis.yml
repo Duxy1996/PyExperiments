@@ -1,11 +1,7 @@
 language: python
 
 python:
-  - "2.7"
   - "3.6"
 
 install:
   - pip install PyQt5
-
-script:
-  - python air.py
