@@ -5,3 +5,6 @@ python:
 
 install:
   - pip install PyQt5
+  
+script:
+  - echo "Skipping tests :("
